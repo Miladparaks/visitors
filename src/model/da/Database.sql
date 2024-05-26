@@ -33,10 +33,12 @@ create sequence person_seq start with 10 increment by 1;
 
 CREATE TABLE TIMING
 (
-    timeId    number primary key,
-    startTime timestamp,
-    endTime   timestamp,
-    doctor_id references PERSON
+    Id    number primary key,
+    start_time timestamp,
+    end_time   timestamp,
+    doctor_id references PERSON,
+    location nvarchar2(30),
+    room_number number
 );
 
 create sequence timing_seq start with 10 increment by 1;
@@ -44,10 +46,10 @@ create sequence timing_seq start with 10 increment by 1;
 
 CREATE TABLE PAYMENT
 (
-    paymentId     number primary key,
-    paymentTime   timestamp,
-    paymentStatus nvarchar2(15),
-    paymentType   char(30)
+    payment_id     number primary key,
+    payment_time   timestamp,
+    payment_status nvarchar2(15),
+    payment_type   char(30)
 );
 create sequence payment_seq start with 10 increment by 1;
 
