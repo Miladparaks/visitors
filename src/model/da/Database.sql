@@ -1,11 +1,12 @@
 CREATE TABLE SERVICES
 (
-    id                 int primary key,
+    id         number primary key,
     name        nvarchar2(30),
     description long,
     service_type        nvarchar2(30),
     status      number(1)
 );
+
 create sequence services_seq start with 10 increment by 1;
 
 CREATE TABLE PERSON
@@ -18,8 +19,8 @@ CREATE TABLE PERSON
     email           nvarchar2(30),
     gender          char(6),
     phoneNumber     nvarchar2(30),
-    personStatus    char(10),
-    personBirthdate timestamp,
+    person_status    char(10),
+    person_birthdate timestamp,
     city            nvarchar2(30),
     username        nvarchar2(30),
     password        nvarchar2(60),
