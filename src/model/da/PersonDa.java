@@ -50,7 +50,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
     @Override
     public Person edit(Person person) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE PERSON SET FIRSTNAME = ?, LASTNAME = ?, AGE = ?, NATIONALID = ?, EMAIL = ?, GENDER = ? , PHONENUMBER = ?, personStatus = ? , personBirthdate = ? , city = ? , username = ?, password = ? , role = ?, service_id = ? WHERE ID = ?"
+                "UPDATE PERSON SET firstname = ?, lastname = ?, age = ?, nationalid = ?, email = ?, gender = ? , phonenumber = ?, person_status = ? , person_status = ? , city = ? , username = ?, password = ? , role = ?, service_id = ? WHERE ID = ?"
         );
 
         preparedStatement.setString(1, person.getFirstName());
@@ -116,28 +116,30 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
 
     @Override
     public Person findById(int id) throws Exception {
-        preparedStatement = connection.prepareStatement("SELECT * FROM PERSON WHERE ID = ?");
+        preparedStatement = connection.prepareStatement("SELECT * FROM PERSON WHERE id = ?");
         preparedStatement.setInt(1, id);
+
         ResultSet resultSet = preparedStatement.executeQuery();
 
         Person person = null;
+
         if (resultSet.next()) {
             person = Person
                     .builder()
-                    .id(resultSet.getInt("PERSON_ID"))
-                    .firstName(resultSet.getString("FIRSTNAME"))
-                    .lastName(resultSet.getString("LASTNAME"))
-                    .age(resultSet.getInt("AGE"))
-                    .nationalId(resultSet.getString("NATIONALID"))
-                    .email(resultSet.getString("EMAIL"))
-                    .gender(Gender.valueOf(resultSet.getString("GENDER")))
-                    .phoneNumber(resultSet.getString("PHONENUMBER"))
-                    .status(Status.valueOf(resultSet.getString("PERSONSTATUS")))
-                    .birthDate(resultSet.getDate("PERSONBIRTHDATE").toLocalDate())
-                    .city(City.valueOf(resultSet.getString("CITY")))
-                    .username(resultSet.getString("USERNAME"))
-                    .password(resultSet.getString("PASSWORD"))
-                    .role(Role.valueOf(resultSet.getString("ROLE")))
+                    .id(resultSet.getInt("ID"))
+                    .firstName(resultSet.getString("firstname"))
+                    .lastName(resultSet.getString("lastname"))
+                    .age(resultSet.getInt("age"))
+                    .nationalId(resultSet.getString("nationalid"))
+                    .email(resultSet.getString("email"))
+                    .gender(Gender.valueOf(resultSet.getString("gender")))
+                    .phoneNumber(resultSet.getString("phonenumber"))
+                    .status(Status.valueOf(resultSet.getString("person_status")))
+                    .birthDate(resultSet.getDate("person_birthdate").toLocalDate())
+                    .city(City.valueOf(resultSet.getString("city")))
+                    .username(resultSet.getString("username"))
+                    .password(resultSet.getString("password"))
+                    .role(Role.valueOf(resultSet.getString("role")))
                     .medicalService(MedicalService.builder().serviceId(resultSet.getInt("Id")).build())
                     .build();
         }
@@ -157,14 +159,14 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
         while (resultSet.next()) {
             Person person = Person
                     .builder()
-                    .id(resultSet.getInt("PERSON_ID"))
+                    .id(resultSet.getInt("ID"))
                     .firstName(resultSet.getString("FIRSTNAME"))
                     .lastName(resultSet.getString("LASTNAME"))
                     .nationalId(resultSet.getString("NATIONALID"))
                     .email(resultSet.getString("EMAIL"))
                     .gender(Gender.valueOf(resultSet.getString("GENDER")))
                     .phoneNumber(resultSet.getString("PHONENUMBER"))
-                    .status(Status.valueOf(resultSet.getString("PERSONSTATUS")))
+                    .status(Status.valueOf(resultSet.getString("PERSON_STATUS")))
                     .username(resultSet.getString("USERNAME"))
                     .password(resultSet.getString("PASSWORD"))
                     .build();
@@ -187,14 +189,14 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
         if (resultSet.next()) {
             person = Person
                     .builder()
-                    .id(resultSet.getInt("PERSON_ID"))
+                    .id(resultSet.getInt("ID"))
                     .firstName(resultSet.getString("FIRSTNAME"))
                     .lastName(resultSet.getString("LASTNAME"))
                     .nationalId(resultSet.getString("NATIONALID"))
                     .email(resultSet.getString("EMAIL"))
                     .gender(Gender.valueOf(resultSet.getString("GENDER")))
                     .phoneNumber(resultSet.getString("PHONENUMBER"))
-                    .status(Status.valueOf(resultSet.getString("PERSONSTATUS")))
+                    .status(Status.valueOf(resultSet.getString("PERSON_STATUS")))
                     .username(resultSet.getString("USERNAME"))
                     .password(resultSet.getString("PASSWORD"))
                     .build();
@@ -215,14 +217,14 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
         if (resultSet.next()) {
             person = Person
                     .builder()
-                    .id(resultSet.getInt("PERSON_ID"))
+                    .id(resultSet.getInt("ID"))
                     .firstName(resultSet.getString("FIRSTNAME"))
                     .lastName(resultSet.getString("LASTNAME"))
                     .nationalId(resultSet.getString("NATIONALID"))
                     .email(resultSet.getString("EMAIL"))
                     .gender(Gender.valueOf(resultSet.getString("GENDER")))
                     .phoneNumber(resultSet.getString("PHONENUMBER"))
-                    .status(Status.valueOf(resultSet.getString("PERSONSTATUS")))
+                    .status(Status.valueOf(resultSet.getString("PERSON_STATUS")))
                     .username(resultSet.getString("USERNAME"))
                     .password(resultSet.getString("PASSWORD"))
                     .build();
@@ -243,14 +245,14 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
         if (resultSet.next()) {
             person = Person
                     .builder()
-                    .id(resultSet.getInt("PERSON_ID"))
+                    .id(resultSet.getInt("ID"))
                     .firstName(resultSet.getString("FIRSTNAME"))
                     .lastName(resultSet.getString("LASTNAME"))
                     .nationalId(resultSet.getString("NATIONALID"))
                     .email(resultSet.getString("EMAIL"))
                     .gender(Gender.valueOf(resultSet.getString("GENDER")))
                     .phoneNumber(resultSet.getString("PHONENUMBER"))
-                    .status(Status.valueOf(resultSet.getString("PERSONSTATUS")))
+                    .status(Status.valueOf(resultSet.getString("PERSON_STATUS")))
                     .username(resultSet.getString("USERNAME"))
                     .password(resultSet.getString("PASSWORD"))
                     .build();
@@ -271,7 +273,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
         if (resultSet.next()) {
             person = Person
                     .builder()
-                    .id(resultSet.getInt("PERSON_ID"))
+                    .id(resultSet.getInt("ID"))
                     .firstName(resultSet.getString("FIRSTNAME"))
                     .lastName(resultSet.getString("LASTNAME"))
                     .nationalId(resultSet.getString("NATIONALID"))

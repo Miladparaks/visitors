@@ -18,35 +18,44 @@ public class Main {
 
         PersonDa personDa = new PersonDa();
 
-        Person person = Person
-                .builder()
+//        Person person = Person
+//                .builder()
+//
+//                .firstName("Mahdi")
+//                .lastName("Parsa")
+//                .age(35)
+//                .nationalId("0082341253")
+//                .email("mr.mpgv@gmail.com")
+//                .gender(Gender.Male)
+//                .phoneNumber("09122711518")
+//                .status(Status.Disable)
+//                .birthDate(LocalDate.now())
+//                .city(City.Ahvaz)
+//                .username("mr.mpgv")
+//                .password("5a!@knak;fda")
+//                .role(Role.Admin)
+//                .medicalService(medicalService)
+//                .id(12)
+//                .build();
 
-                .firstName("Milad")
-                .lastName("Parsa")
-                .age(35)
-                .nationalId("0084373493")
-                .email("mr.mpgv@gmail.com")
-                .gender(Gender.Male)
-                .phoneNumber("09122711518")
-                .status(Status.Enable)
-                .birthDate(LocalDate.now())
-                .city(City.Ahvaz)
-                .username("mr.mpgv")
-                .password("5a!@knak;fda")
-                .role(Role.Admin)
-                .medicalService(MedicalService.builder().serviceId(2).build())
-                .id(12)
-                .build();
+
+
+//        personDa.edit(person);
+//        personDa.findByAll();
+
+
+//        !!!!!!!!!!!!!!!!!!!!!!!!!!
+
+//        System.out.println(personDa.findByUsername("mr.mpgv"));
+//        System.out.println(personDa.findById(13));
+//        personDa.save(person);
+//        personDa.remove(12);
+//        System.out.println(personDa.findByLastName("Rasoli"));
+//        System.out.println(personDa.findByUserPass("mr.mpgv", "5a!@knak;fda"));
 
 
 //
-//        System.out.println(personDa.findByUsername("mrmpgv"));
-
-//        personDa.save(person);
-
-        personDa.edit(person);
-
-        System.out.println(person);
+//        System.out.println(person);
     }
 
 
