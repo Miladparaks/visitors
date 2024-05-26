@@ -1,20 +1,13 @@
 import model.da.PersonDa;
-import model.entity.Person;
-import model.entity.Services;
-import model.enums.City;
-import model.enums.Gender;
-import model.enums.Role;
-import model.enums.Status;
+import model.entity.MedicalService;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
 //        Scanner sc = new Scanner(System.in);
-        Services services = new Services();
-        services.setServiceId(1);
+        MedicalService medicalService = new MedicalService();
+        medicalService.setServiceId(1);
 
         PersonDa personDa = new PersonDa();
 

@@ -1,6 +1,7 @@
 package model.da;
 
 import model.entity.Visit;
+import model.tools.ConnectionProvider;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

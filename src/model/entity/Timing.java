@@ -14,11 +14,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @SuperBuilder
 
+
 public class Timing {
     private int timeId;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private Person doctor;
+    private String location;
+    private int roomNumber;
 
 
     @Override

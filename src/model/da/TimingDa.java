@@ -1,11 +1,10 @@
 package model.da;
 
 import model.entity.Person;
-import model.entity.Services;
 import model.entity.Timing;
+import model.tools.ConnectionProvider;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class TimingDa implements AutoCloseable{

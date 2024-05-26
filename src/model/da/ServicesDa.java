@@ -1,8 +1,8 @@
 package model.da;
 
-import model.entity.Person;
-import model.entity.Services;
-import model.enums.Status;
+import model.entity.MedicalService;
+import model.entity.enums.Status;
+import model.tools.ConnectionProvider;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,35 +16,35 @@ public class ServicesDa {
         connection = ConnectionProvider.getConnectionProvider().getConnection();
     }
 
-    public void save(Services services) throws SQLException {
+    public void save(MedicalService medicalService) throws SQLException {
 
-        services.setServiceId(ConnectionProvider.getConnectionProvider().getNextId("SERVICES_SEQ"));
+        medicalService.setServiceId(ConnectionProvider.getConnectionProvider().getNextId("SERVICES_SEQ"));
 
         preparedStatement = connection.prepareStatement(
                 "INSERT INTO SERVICES (ID, serviceName, serviceDescription, serviceType, serviceStatus) VALUES (?, ?, ?, ?, ?)"
         );
-        preparedStatement.setInt(1, services.getServiceId());
-        preparedStatement.setString(2, services.getServiceName());
-        preparedStatement.setString(3, services.getServiceDescription());
-        preparedStatement.setString(4, services.getServiceType());
+        preparedStatement.setInt(1, medicalService.getServiceId());
+        preparedStatement.setString(2, medicalService.getServiceName());
+        preparedStatement.setString(3, medicalService.getServiceDescription());
+        preparedStatement.setString(4, medicalService.getServiceType());
         // اسمی که توی خود کلاس تعریف کردیم
-        preparedStatement.setString(5, String.valueOf(services.getServiceStatus()));
+        preparedStatement.setString(5, String.valueOf(medicalService.getServiceStatus()));
 
 
     }
 
     //Edit Section
 
-    public void edit(Services services) throws SQLException {
+    public void edit(MedicalService medicalService) throws SQLException {
         preparedStatement = connection.prepareStatement(
                 "UPDATE SERVICES SET SERVICENAME = ?, ServiceDescription = ?, serviceType = ?, serviceStatus = ? WHERE ID = ?"
         );
 
-        preparedStatement.setString(1, services.getServiceName());
-        preparedStatement.setString(2, services.getServiceDescription());
-        preparedStatement.setString(3, String.valueOf(services.getServiceType()));
-        preparedStatement.setString(4, String.valueOf(services.getServiceStatus()));
-        preparedStatement.setInt(5, services.getServiceId());
+        preparedStatement.setString(1, medicalService.getServiceName());
+        preparedStatement.setString(2, medicalService.getServiceDescription());
+        preparedStatement.setString(3, String.valueOf(medicalService.getServiceType()));
+        preparedStatement.setString(4, String.valueOf(medicalService.getServiceStatus()));
+        preparedStatement.setInt(5, medicalService.getServiceId());
         preparedStatement.execute();
 
     }
@@ -61,8 +61,8 @@ public class ServicesDa {
     }
 
 
-    public List<Services> findByserviceName(String serviceName) throws SQLException {
-        List<Services> serviceList = new ArrayList<>();
+    public List<MedicalService> findByserviceName(String serviceName) throws SQLException {
+        List<MedicalService> serviceList = new ArrayList<>();
         preparedStatement = connection.prepareStatement("SELECT * FROM SERVICES WHERE serviceName = ?");
         preparedStatement.setString(1, serviceName);
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -70,7 +70,7 @@ public class ServicesDa {
 
         while(resultSet.next()){
 
-            Services services = Services
+            MedicalService medicalService = MedicalService
                     .builder()
                     .serviceId(resultSet.getInt("ID"))
                     .serviceName(resultSet.getString("serviceName"))
@@ -79,7 +79,7 @@ public class ServicesDa {
                     .serviceStatus(Status.valueOf(resultSet.getString("serviceStatus")))
                     .build();
 
-            serviceList.add(services);
+            serviceList.add(medicalService);
         }
         return serviceList;
 

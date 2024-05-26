@@ -5,10 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import model.enums.City;
-import model.enums.Gender;
-import model.enums.Status;
-import model.enums.Role;
+import model.entity.enums.City;
+import model.entity.enums.Gender;
+import model.entity.enums.Status;
+import model.entity.enums.Role;
 
 import java.time.LocalDate;
 
@@ -32,7 +32,7 @@ public class Person {
     private String username;
     private String password;
     private Role role;
-    private Services services;
+    private MedicalService medicalService;
 
 
 @Override

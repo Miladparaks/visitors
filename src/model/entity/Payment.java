@@ -5,12 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import model.enums.City;
-import model.enums.Vtype;
+import model.entity.enums.VisitType;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 
 @Getter
@@ -22,7 +19,7 @@ public class Payment {
     private int paymentId;
     private LocalDateTime paymentTime;
     private String paymentStatus;
-    private Vtype paymentType;
+    private VisitType paymentType;
 
     @Override
     public String toString() {

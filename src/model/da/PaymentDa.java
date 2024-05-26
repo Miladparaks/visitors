@@ -1,11 +1,10 @@
 package model.da;
 
 import model.entity.Payment;
-import model.entity.Timing;
-import model.enums.Vtype;
+import model.entity.enums.VisitType;
+import model.tools.ConnectionProvider;
 
 import java.sql.*;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +62,7 @@ public class PaymentDa implements AutoCloseable {
                     // localTime????
                     .paymentTime(resultSet.getTimestamp("paymenttime").toLocalDateTime())
                     .paymentStatus(resultSet.getString("paymentStatus"))
-                    .paymentType(Vtype.valueOf(resultSet.getString("PaymentType")))
+                    .paymentType(VisitType.valueOf(resultSet.getString("PaymentType")))
                     .build();
         }
         return paymentList;
@@ -83,7 +82,7 @@ public class PaymentDa implements AutoCloseable {
                     .paymentId(resultSet.getInt("paymentId"))
                     .paymentTime(resultSet.getTimestamp("paymenttime").toLocalDateTime())
                     .paymentStatus(resultSet.getString("paymentStatus"))
-                    .paymentType(Vtype.valueOf(resultSet.getString("PaymentType")))
+                    .paymentType(VisitType.valueOf(resultSet.getString("PaymentType")))
                     .build();
         }
 
@@ -107,7 +106,7 @@ public class PaymentDa implements AutoCloseable {
                     .paymentId(resultSet.getInt("paymentId"))
                     .paymentTime(resultSet.getTimestamp("paymenttime").toLocalDateTime())
                     .paymentStatus(resultSet.getString("paymentStatus"))
-                    .paymentType(Vtype.valueOf(resultSet.getString("PaymentType")))
+                    .paymentType(VisitType.valueOf(resultSet.getString("PaymentType")))
                     .build();
         }
 
