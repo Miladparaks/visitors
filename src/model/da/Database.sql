@@ -1,43 +1,43 @@
 CREATE TABLE SERVICES
 (
-    id         number primary key,
-    name        nvarchar2(30),
-    description long,
-    service_type        nvarchar2(30),
-    status      number(1)
+    id           number primary key,
+    name         nvarchar2(30),
+    description  nvarchar2(30),
+    service_type nvarchar2(30),
+    status       number(1)
 );
 
-create sequence services_seq start with 10 increment by 1;
+create sequence services_seq start with 1 increment by 1;
 
 CREATE TABLE PERSON
 (
-    id              number primary key,
-    firstname       nvarchar2(30),
-    lastname        nvarchar2(30),
-    age             number,
-    nationalId      nvarchar2(30),
-    email           nvarchar2(30),
-    gender          nvarchar2(6),
-    phoneNumber     nvarchar2(30),
-    person_status   nvarchar2(10),
+    id               number primary key,
+    firstname        nvarchar2(30),
+    lastname         nvarchar2(30),
+    age              number,
+    nationalId       nvarchar2(30),
+    email            nvarchar2(30),
+    gender           nvarchar2(6),
+    phoneNumber      nvarchar2(30),
+    person_status    nvarchar2(10),
     person_birthdate timestamp,
-    city            nvarchar2(30),
-    username        nvarchar2(30),
-    password        nvarchar2(60),
-    role            nvarchar2(10),
+    city             nvarchar2(30),
+    username         nvarchar2(30),
+    password         nvarchar2(60),
+    role             nvarchar2(10),
     service_id references SERVICES
 );
 
-create sequence person_seq start with 10 increment by 1;
+create sequence person_seq start with 1 increment by 1;
 
 
 CREATE TABLE TIMING
 (
-    Id    number primary key,
-    start_time timestamp,
-    end_time   timestamp,
+    Id          number primary key,
+    start_time  timestamp,
+    end_time    timestamp,
     doctor_id references PERSON,
-    location nvarchar2(30),
+    location    nvarchar2(30),
     room_number number
 );
 
@@ -59,7 +59,7 @@ CREATE TABLE VISIT
     customer references PERSON,
     timing_id references TIMING,
     payment_id references PAYMENT,
-    status number(1)
+    status   number(1)
 );
 create sequence visit_seq start with 10 increment by 1;
 

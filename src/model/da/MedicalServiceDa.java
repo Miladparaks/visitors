@@ -8,11 +8,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServicesDa {
+public class MedicalServiceDa implements AutoCloseable {
     private static Connection connection;
     private static PreparedStatement preparedStatement;
 
-    public ServicesDa() throws SQLException {
+    public MedicalServiceDa() throws SQLException {
         connection = ConnectionProvider.getConnectionProvider().getConnection();
     }
 
@@ -21,16 +21,16 @@ public class ServicesDa {
         medicalService.setServiceId(ConnectionProvider.getConnectionProvider().getNextId("SERVICES_SEQ"));
 
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO SERVICES (ID, serviceName, serviceDescription, serviceType, serviceStatus) VALUES (?, ?, ?, ?, ?)"
+                "INSERT INTO SERVICES (id, name, description, service_type, status) VALUES (?, ?, ?, ?, ?)"
         );
         preparedStatement.setInt(1, medicalService.getServiceId());
         preparedStatement.setString(2, medicalService.getServiceName());
         preparedStatement.setString(3, medicalService.getServiceDescription());
         preparedStatement.setString(4, medicalService.getServiceType());
         // اسمی که توی خود کلاس تعریف کردیم
-        preparedStatement.setString(5, String.valueOf(medicalService.getServiceStatus()));
+        preparedStatement.setBoolean(5,medicalService.isServiceStatus());
 
-
+        preparedStatement.execute();
     }
 
     //Edit Section
@@ -43,7 +43,7 @@ public class ServicesDa {
         preparedStatement.setString(1, medicalService.getServiceName());
         preparedStatement.setString(2, medicalService.getServiceDescription());
         preparedStatement.setString(3, String.valueOf(medicalService.getServiceType()));
-        preparedStatement.setString(4, String.valueOf(medicalService.getServiceStatus()));
+        preparedStatement.setString(4, String.valueOf(medicalService.isServiceStatus()));
         preparedStatement.setInt(5, medicalService.getServiceId());
         preparedStatement.execute();
 
@@ -76,7 +76,7 @@ public class ServicesDa {
                     .serviceName(resultSet.getString("serviceName"))
                     .serviceDescription(resultSet.getString("serviceDescription"))
                     .serviceType(resultSet.getString("servicetype"))
-                    .serviceStatus(Status.valueOf(resultSet.getString("serviceStatus")))
+//                    .serviceStatus(Status.valueOf(resultSet.getString("serviceStatus")))
                     .build();
 
             serviceList.add(medicalService);

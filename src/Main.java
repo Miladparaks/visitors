@@ -1,3 +1,5 @@
+import model.bl.MedicalServiceBl;
+import model.bl.PersonBl;
 import model.da.PersonDa;
 import model.entity.MedicalService;
 import model.entity.Person;
@@ -13,32 +15,36 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
 
-        MedicalService medicalService = new MedicalService();
-        medicalService.setServiceId(1);
+        MedicalService medicalService = MedicalService
+                .builder()
+                .serviceName("Heart")
+                .serviceStatus(true)
+                .build();
 
-        PersonDa personDa = new PersonDa();
-
-//        Person person = Person
-//                .builder()
-//
-//                .firstName("Mahdi")
-//                .lastName("Parsa")
-//                .age(35)
-//                .nationalId("0082341253")
-//                .email("mr.mpgv@gmail.com")
-//                .gender(Gender.Male)
-//                .phoneNumber("09122711518")
-//                .status(Status.Disable)
-//                .birthDate(LocalDate.now())
-//                .city(City.Ahvaz)
-//                .username("mr.mpgv")
-//                .password("5a!@knak;fda")
-//                .role(Role.Admin)
-//                .medicalService(medicalService)
-//                .id(12)
-//                .build();
+        MedicalServiceBl.getMedicalServiceBl().save(medicalService);
+        System.out.println(medicalService);
 
 
+        Person person = Person
+                .builder()
+                .firstName("Mahdi")
+                .lastName("Parsa")
+                .age(35)
+                .nationalId("0082341253")
+                .email("mr.mpgv@gmail.com")
+                .gender(Gender.Male)
+                .phoneNumber("09122711518")
+                .status(Status.Disable)
+                .birthDate(LocalDate.now())
+                .city(City.Ahvaz)
+                .username("mr.mpgv")
+                .password("5a!@knak;fda")
+                .role(Role.Admin)
+                .medicalService(medicalService)
+                .build();
+
+        PersonBl.getPersonBl().save(person);
+        System.out.println(person);
 
 //        personDa.edit(person);
 //        personDa.findByAll();

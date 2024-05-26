@@ -88,7 +88,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
 
         List<Person> personList = new ArrayList<>();
 
-        preparedStatement = connection.prepareStatement("SELECT * FROM PERSON ORDER BY PERSON_ID DESC");
+        preparedStatement = connection.prepareStatement("SELECT * FROM PERSON ORDER BY ID DESC");
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
@@ -180,7 +180,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
 
     public Person findByUsername(String username) throws SQLException {
 
-        preparedStatement = connection.prepareStatement("select * from PERSON where username like ? order by ID ASC");
+        preparedStatement = connection.prepareStatement("select * from PERSON where username like ? order by ID");
         preparedStatement.setString(1, "%" + username + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -207,7 +207,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
 
     public Person findByUserPass(String username, String password) throws SQLException {
 
-        preparedStatement = connection.prepareStatement("select * from PERSON where username like ? and password like ? order by ID ASC");
+        preparedStatement = connection.prepareStatement("select * from PERSON where username like ? and password like ? order by ID");
         preparedStatement.setString(1, "%" + username + "%");
         preparedStatement.setString(2, "%" + password + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -235,7 +235,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
 
     public Person findByRole(Role role) throws SQLException {
 
-        preparedStatement = connection.prepareStatement("select * from PERSON where role like ? order by ID ASC");
+        preparedStatement = connection.prepareStatement("select * from PERSON where role like ? order by ID");
         preparedStatement.setString(1, "%" + role + "%");
 
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -263,7 +263,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
 
     public Person findByService(String service) throws SQLException {
 
-        preparedStatement = connection.prepareStatement("select * from PERSON where services like ? order by ID ASC");
+        preparedStatement = connection.prepareStatement("select * from PERSON where SERVICE_ID like ? order by ID ASC");
         preparedStatement.setString(1, "%" + service + "%");
 
         ResultSet resultSet = preparedStatement.executeQuery();

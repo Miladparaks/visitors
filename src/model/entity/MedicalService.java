@@ -18,7 +18,7 @@ public class MedicalService {
     private String serviceName;
     private String serviceDescription;
     private String serviceType;
-    private Status serviceStatus;
+    private boolean serviceStatus;
 
 
     @Override
