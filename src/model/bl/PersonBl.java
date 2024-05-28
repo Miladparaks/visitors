@@ -1,6 +1,7 @@
 package model.bl;
 
 
+import model.controller.exceptions.NoPersonFoundException;
 import model.da.PersonDa;
 import model.entity.Person;
 import model.entity.enums.Role;
@@ -28,7 +29,15 @@ public class PersonBl implements CRUD<Person> {
 
     @Override
     public Person edit(Person person) throws Exception {
-        return null;
+        try(PersonDa personDa = new PersonDa()) {
+            if(personDa.findById(person.getId()) != null){
+                personDa.edit(person);
+                return person;
+            }
+            else{
+                throw new NoPersonFoundException();
+            }
+        }
     }
 
     @Override
@@ -40,7 +49,7 @@ public class PersonBl implements CRUD<Person> {
                 personDa.remove(id);
                 return person;
             } else {
-                throw new Exception();
+                throw new NoPersonFoundException();
             }
         }
     }
@@ -48,11 +57,11 @@ public class PersonBl implements CRUD<Person> {
     @Override
     public List<Person> findAll() throws Exception {
         try (PersonDa personDa = new PersonDa()) {
-            List<Person> personList = personDa.findAll();
-            if (!personList.isEmpty()) {
-                return personList;
+            List<Person> perosnList = personDa.findAll();
+            if (!perosnList.isEmpty()) {
+                return perosnList;
             } else {
-                throw new Exception();
+                throw new NoPersonFoundException();
             }
 
         }
@@ -65,7 +74,7 @@ public class PersonBl implements CRUD<Person> {
             if (person != null) {
                 return person;
             } else {
-                throw new Exception();
+                throw new NoPersonFoundException();
             }
         }
     }
@@ -76,7 +85,7 @@ public class PersonBl implements CRUD<Person> {
             if (!personList.isEmpty()) {
                 return personList;
             } else {
-                throw new Exception();
+                throw new NoPersonFoundException();
             }
         }
     }
@@ -87,7 +96,7 @@ public class PersonBl implements CRUD<Person> {
             if (!personList.isEmpty()) {
                 return personList;
             } else {
-                throw new Exception();
+                throw new NoPersonFoundException();
             }
 
         }
@@ -99,7 +108,7 @@ public class PersonBl implements CRUD<Person> {
             if (!personList.isEmpty()) {
                 return personList;
             } else {
-                throw new Exception();
+                throw new NoPersonFoundException();
             }
         }
     }
@@ -110,7 +119,7 @@ public class PersonBl implements CRUD<Person> {
             if (person != null) {
                 return person;
             } else {
-                throw new Exception();
+                throw new NoPersonFoundException();
             }
         }
 
@@ -123,7 +132,7 @@ public class PersonBl implements CRUD<Person> {
             if (person != null) {
                 return person;
             } else {
-                throw new Exception();
+                throw new NoPersonFoundException();
             }
         }
     }

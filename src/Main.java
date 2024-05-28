@@ -1,5 +1,7 @@
 import model.bl.MedicalServiceBl;
+import model.bl.PersonBl;
 import model.entity.MedicalService;
+import model.entity.enums.Role;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -60,6 +62,9 @@ public class Main {
 //        System.out.println(PersonBl.getPersonBl().findByUsername("mr.mpgv"));
 //        System.out.println(PersonBl.getPersonBl().findByUserPass("mr.mpgv", "5a!@knak;fda"));
 //        System.out.println(PersonBl.getPersonBl().findByService("1"));
+
+//        System.out.println(PersonBl.getPersonBl().findAll());
+        System.out.println(PersonBl.getPersonBl().findByRole(Role.valueOf("Admin")));
 
 
     }

@@ -89,12 +89,12 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
 
         List<Person> personList = new ArrayList<>();
 
-        preparedStatement = connection.prepareStatement("SELECT * FROM PERSON ORDER BY ID");
+        preparedStatement = connection.prepareStatement("SELECT * FROM PERSON");
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
             Person person = Person.builder()
-                    .id(resultSet.getInt("PERSON_ID"))
+                    .id(resultSet.getInt("ID"))
                     .firstName(resultSet.getString("FIRSTNAME"))
                     .lastName(resultSet.getString("LASTNAME"))
                     .age((resultSet.getInt("AGE")))
@@ -102,14 +102,15 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
                     .email(resultSet.getString("EMAIL"))
                     .gender(Gender.valueOf(resultSet.getString("GENDER")))
                     .phone_number(resultSet.getString("phone_number"))
-                    .status(Status.valueOf(resultSet.getString("PERSONSTATUS")))
-                    .birthDate(resultSet.getDate("PERSONBIRTHDATE").toLocalDate())
+                    .status(Status.valueOf(resultSet.getString("PERSON_STATUS")))
+                    .birthDate(resultSet.getDate("PERSON_BIRTHDATE").toLocalDate())
                     .city(City.valueOf(resultSet.getString("CITY")))
                     .username(resultSet.getString("USERNAME"))
                     .password(resultSet.getString("PASSWORD"))
                     .role(Role.valueOf(resultSet.getString("ROLE")))
                     .medicalService(MedicalService.builder().serviceId(resultSet.getInt("ID")).build())
                     .build();
+            personList.add(person);
         }
 
         return personList;
