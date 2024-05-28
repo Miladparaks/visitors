@@ -32,7 +32,15 @@ public class MedicalServiceBl implements CRUD<MedicalService> {
 
     @Override
     public MedicalService remove(int id) throws Exception {
-
+        try(MedicalServiceDa medicalServiceDa = new MedicalServiceDa()) {
+            MedicalService medicalService = medicalServiceDa.findById(id);
+            if(medicalService != null) {
+                medicalServiceDa.remove(id);
+                return medicalService;
+            }else{
+                throw new Exception();
+            }
+        }
     }
 
     @Override
@@ -50,7 +58,16 @@ public class MedicalServiceBl implements CRUD<MedicalService> {
     }
 
     @Override
-    public MedicalService findById(int id) throws Exception {
-        return null;
+    public MedicalService findById(int id) throws Exception{
+    try(MedicalServiceDa medicalServiceDa = new MedicalServiceDa()){
+        MedicalService medicalService = medicalServiceDa.findById(id);
+        if(medicalService != null){
+            return medicalService;
+        }
+        else{
+            throw new Exception();
+        }
     }
+    }
+
 }
