@@ -25,7 +25,7 @@ public class Person {
     private String nationalId;
     private String email;
     private Gender gender;
-    private String phoneNumber;
+    private String phone_number;
     private Status status;
     private LocalDate birthDate;
     private City city;

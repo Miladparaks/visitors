@@ -28,7 +28,7 @@ public class MedicalServiceDa implements AutoCloseable {
         preparedStatement.setString(3, medicalService.getServiceDescription());
         preparedStatement.setString(4, medicalService.getServiceType());
         // اسمی که توی خود کلاس تعریف کردیم
-        preparedStatement.setBoolean(5,medicalService.isServiceStatus());
+        preparedStatement.setBoolean(5, medicalService.isServiceStatus());
 
         preparedStatement.execute();
     }
@@ -61,14 +61,55 @@ public class MedicalServiceDa implements AutoCloseable {
     }
 
 
-    public List<MedicalService> findByserviceName(String serviceName) throws SQLException {
+    public List<MedicalService> findAll() throws Exception {
+        List<MedicalService> medicalServices = new ArrayList<>();
+        preparedStatement = connection.prepareStatement(
+                "SELECT * FROM SERVICES ORDER BY ID"
+        );
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            MedicalService medicalServiceList = MedicalService
+                    .builder()
+                    .serviceId(resultSet.getInt("ID"))
+                    .serviceName(resultSet.getString("NAME"))
+                    .serviceDescription(resultSet.getString("DESCRIPTION"))
+                    .serviceType(resultSet.getString("SERVICE_TYPE"))
+                    .serviceStatus(String.valueOf(resultSet.getInt("STATUS")).isEmpty())
+                    .build();
+            medicalServices.add(medicalServiceList);
+        }
+        return medicalServices;
+    }
+
+    public MedicalService findById(int id) throws Exception {
+        preparedStatement = connection.prepareStatement("SELECT * FROM SERVICES WHERE ID = ?");
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        MedicalService medicalService = null;
+        if (resultSet.next()) {
+            medicalService = MedicalService.builder()
+                    .serviceId(resultSet.getInt("ID"))
+                    .serviceName(resultSet.getString("NAME"))
+                    .serviceDescription(resultSet.getString("DESCRIPTION"))
+                    .serviceType(resultSet.getString("SERVICE_TYPE"))
+                    .serviceStatus(String.valueOf(resultSet.getInt("STATUS")).isEmpty())
+                    .build();
+        }
+        return medicalService;
+
+    }
+
+
+
+    public List<MedicalService> findByserviceName(String serviceName) throws Exception {
         List<MedicalService> serviceList = new ArrayList<>();
         preparedStatement = connection.prepareStatement("SELECT * FROM SERVICES WHERE serviceName = ?");
         preparedStatement.setString(1, serviceName);
         ResultSet resultSet = preparedStatement.executeQuery();
 
 
-        while(resultSet.next()){
+        while (resultSet.next()) {
 
             MedicalService medicalService = MedicalService
                     .builder()
@@ -76,7 +117,7 @@ public class MedicalServiceDa implements AutoCloseable {
                     .serviceName(resultSet.getString("serviceName"))
                     .serviceDescription(resultSet.getString("serviceDescription"))
                     .serviceType(resultSet.getString("servicetype"))
-//                    .serviceStatus(Status.valueOf(resultSet.getString("serviceStatus")))
+                    .serviceStatus(String.valueOf(resultSet.getInt("STATUS")).isEmpty())
                     .build();
 
             serviceList.add(medicalService);

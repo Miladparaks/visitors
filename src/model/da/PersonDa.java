@@ -25,7 +25,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
     public Person save(Person person) throws Exception {
         person.setId(ConnectionProvider.getConnectionProvider().getNextId("PERSON_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO PERSON (ID, FIRSTNAME, LASTNAME, AGE, NATIONALID, EMAIL, GENDER, PHONENUMBER, PERSON_STATUS, PERSON_BIRTHDATE, CITY, USERNAME, PASSWORD, ROLE, SERVICE_ID) VALUES" +
+                "INSERT INTO PERSON (ID, FIRSTNAME, LASTNAME, AGE, NATIONALID, EMAIL, GENDER, phone_number, PERSON_STATUS, PERSON_BIRTHDATE, CITY, USERNAME, PASSWORD, ROLE, SERVICE_ID) VALUES" +
                         " (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, person.getId());
@@ -35,7 +35,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
         preparedStatement.setString(5, person.getNationalId());
         preparedStatement.setString(6, person.getEmail());
         preparedStatement.setString(7, person.getGender().toString());
-        preparedStatement.setString(8, person.getPhoneNumber());
+        preparedStatement.setString(8, person.getPhone_number());
         preparedStatement.setString(9, person.getStatus().toString());
         preparedStatement.setDate(10, Date.valueOf(person.getBirthDate()));
         preparedStatement.setString(11, person.getCity().toString());
@@ -50,7 +50,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
     @Override
     public Person edit(Person person) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE PERSON SET firstname = ?, lastname = ?, age = ?, nationalid = ?, email = ?, gender = ? , phonenumber = ?, person_status = ? , person_status = ? , city = ? , username = ?, password = ? , role = ?, service_id = ? WHERE ID = ?"
+                "UPDATE PERSON SET firstname = ?, lastname = ?, age = ?, nationalid = ?, email = ?, gender = ? , phone_number = ?, person_status = ? , person_status = ? , city = ? , username = ?, password = ? , role = ?, service_id = ? WHERE ID = ?"
         );
 
         preparedStatement.setString(1, person.getFirstName());
@@ -59,7 +59,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
         preparedStatement.setString(4, person.getNationalId());
         preparedStatement.setString(5, person.getEmail());
         preparedStatement.setString(6, person.getGender().toString());
-        preparedStatement.setString(7, person.getPhoneNumber());
+        preparedStatement.setString(7, person.getPhone_number());
         preparedStatement.setString(8, person.getStatus().toString());
         preparedStatement.setDate(9, Date.valueOf(person.getBirthDate()));
         preparedStatement.setString(10, person.getCity().toString());
@@ -69,11 +69,12 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
         preparedStatement.setInt(14, Integer.parseInt(person.getMedicalService().toString()));
         preparedStatement.setInt(15, person.getId());
         preparedStatement.execute();
-                 return person;
+        return person;
     }
 
     @Override
     public Person remove(int id) throws Exception {
+
         preparedStatement = connection.prepareStatement(
                 "DELETE FROM PERSON WHERE ID = ?"
         );
@@ -88,7 +89,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
 
         List<Person> personList = new ArrayList<>();
 
-        preparedStatement = connection.prepareStatement("SELECT * FROM PERSON ORDER BY ID DESC");
+        preparedStatement = connection.prepareStatement("SELECT * FROM PERSON ORDER BY ID");
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
@@ -100,7 +101,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
                     .nationalId(resultSet.getString("NATIONALID"))
                     .email(resultSet.getString("EMAIL"))
                     .gender(Gender.valueOf(resultSet.getString("GENDER")))
-                    .phoneNumber(resultSet.getString("PHONENUMBER"))
+                    .phone_number(resultSet.getString("phone_number"))
                     .status(Status.valueOf(resultSet.getString("PERSONSTATUS")))
                     .birthDate(resultSet.getDate("PERSONBIRTHDATE").toLocalDate())
                     .city(City.valueOf(resultSet.getString("CITY")))
@@ -133,7 +134,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
                     .nationalId(resultSet.getString("nationalid"))
                     .email(resultSet.getString("email"))
                     .gender(Gender.valueOf(resultSet.getString("gender")))
-                    .phoneNumber(resultSet.getString("phonenumber"))
+                    .phone_number(resultSet.getString("Phone_number"))
                     .status(Status.valueOf(resultSet.getString("person_status")))
                     .birthDate(resultSet.getDate("person_birthdate").toLocalDate())
                     .city(City.valueOf(resultSet.getString("city")))
@@ -149,7 +150,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
 
     public List<Person> findByLastName(String lastname) throws SQLException {
 
-        List<Person>  personList = new ArrayList<>();
+        List<Person> personList = new ArrayList<>();
 
         preparedStatement = connection.prepareStatement("select * from PERSON where lastname like ? order by ID ASC");
         preparedStatement.setString(1, "%" + lastname + "%");
@@ -165,7 +166,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
                     .nationalId(resultSet.getString("NATIONALID"))
                     .email(resultSet.getString("EMAIL"))
                     .gender(Gender.valueOf(resultSet.getString("GENDER")))
-                    .phoneNumber(resultSet.getString("PHONENUMBER"))
+                    .phone_number(resultSet.getString("Phone_number"))
                     .status(Status.valueOf(resultSet.getString("PERSON_STATUS")))
                     .username(resultSet.getString("USERNAME"))
                     .password(resultSet.getString("PASSWORD"))
@@ -177,17 +178,16 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
     }
 
 
-
-    public Person findByUsername(String username) throws SQLException {
+    public List<Person> findByUsername(String username) throws SQLException {
 
         preparedStatement = connection.prepareStatement("select * from PERSON where username like ? order by ID");
         preparedStatement.setString(1, "%" + username + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
 
-        Person person = null;
+        List<Person> personList = new ArrayList<>();
 
-        if (resultSet.next()) {
-            person = Person
+        while (resultSet.next()) {
+            Person person = Person
                     .builder()
                     .id(resultSet.getInt("ID"))
                     .firstName(resultSet.getString("FIRSTNAME"))
@@ -195,27 +195,28 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
                     .nationalId(resultSet.getString("NATIONALID"))
                     .email(resultSet.getString("EMAIL"))
                     .gender(Gender.valueOf(resultSet.getString("GENDER")))
-                    .phoneNumber(resultSet.getString("PHONENUMBER"))
+                    .phone_number(resultSet.getString("Phone_number"))
                     .status(Status.valueOf(resultSet.getString("PERSON_STATUS")))
                     .username(resultSet.getString("USERNAME"))
                     .password(resultSet.getString("PASSWORD"))
                     .build();
+            personList.add(person);
 
         }
-        return person;
+        return personList;
     }
 
-    public Person findByUserPass(String username, String password) throws SQLException {
+    public List<Person> findByUserPass(String username, String password) throws SQLException {
 
         preparedStatement = connection.prepareStatement("select * from PERSON where username like ? and password like ? order by ID");
         preparedStatement.setString(1, "%" + username + "%");
         preparedStatement.setString(2, "%" + password + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
 
-        Person person = null;
+        ArrayList<Person> personList = new ArrayList<>();
 
         if (resultSet.next()) {
-            person = Person
+            Person person = Person
                     .builder()
                     .id(resultSet.getInt("ID"))
                     .firstName(resultSet.getString("FIRSTNAME"))
@@ -223,14 +224,15 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
                     .nationalId(resultSet.getString("NATIONALID"))
                     .email(resultSet.getString("EMAIL"))
                     .gender(Gender.valueOf(resultSet.getString("GENDER")))
-                    .phoneNumber(resultSet.getString("PHONENUMBER"))
+                    .phone_number(resultSet.getString("Phone_number"))
                     .status(Status.valueOf(resultSet.getString("PERSON_STATUS")))
                     .username(resultSet.getString("USERNAME"))
                     .password(resultSet.getString("PASSWORD"))
                     .build();
+            personList.add(person);
 
         }
-        return person;
+        return personList;
     }
 
     public Person findByRole(Role role) throws SQLException {
@@ -251,7 +253,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
                     .nationalId(resultSet.getString("NATIONALID"))
                     .email(resultSet.getString("EMAIL"))
                     .gender(Gender.valueOf(resultSet.getString("GENDER")))
-                    .phoneNumber(resultSet.getString("PHONENUMBER"))
+                    .phone_number(resultSet.getString("Phone_number"))
                     .status(Status.valueOf(resultSet.getString("PERSON_STATUS")))
                     .username(resultSet.getString("USERNAME"))
                     .password(resultSet.getString("PASSWORD"))
@@ -279,7 +281,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
                     .nationalId(resultSet.getString("NATIONALID"))
                     .email(resultSet.getString("EMAIL"))
                     .gender(Gender.valueOf(resultSet.getString("GENDER")))
-                    .phoneNumber(resultSet.getString("PHONENUMBER"))
+                    .phone_number(resultSet.getString("Phone_number"))
                     .status(Status.valueOf(resultSet.getString("PERSON_STATUS")))
                     .username(resultSet.getString("USERNAME"))
                     .password(resultSet.getString("PASSWORD"))
@@ -290,13 +292,11 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
     }
 
 
-
     @Override
     public void close() throws Exception {
         preparedStatement.close();
         connection.close();
     }
-
 
 
 }

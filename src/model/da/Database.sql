@@ -18,7 +18,7 @@ CREATE TABLE PERSON
     nationalId       nvarchar2(30),
     email            nvarchar2(30),
     gender           nvarchar2(6),
-    phoneNumber      nvarchar2(30),
+    phone_number      nvarchar2(30),
     person_status    nvarchar2(10),
     person_birthdate timestamp,
     city             nvarchar2(30),

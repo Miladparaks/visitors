@@ -17,7 +17,9 @@ public class Main {
 
         MedicalService medicalService = MedicalService
                 .builder()
-                .serviceName("Heart")
+                .serviceName("Dentist")
+                .serviceDescription("Focusedon the teeth, gums, and mouth")
+                .serviceType("Primary care Clinics")
                 .serviceStatus(true)
                 .build();
 
@@ -25,43 +27,36 @@ public class Main {
         System.out.println(medicalService);
 
 
-        Person person = Person
-                .builder()
-                .firstName("Mahdi")
-                .lastName("Parsa")
-                .age(35)
-                .nationalId("0082341253")
-                .email("mr.mpgv@gmail.com")
-                .gender(Gender.Male)
-                .phoneNumber("09122711518")
-                .status(Status.Disable)
-                .birthDate(LocalDate.now())
-                .city(City.Ahvaz)
-                .username("mr.mpgv")
-                .password("5a!@knak;fda")
-                .role(Role.Admin)
-                .medicalService(medicalService)
-                .build();
-
-        PersonBl.getPersonBl().save(person);
-        System.out.println(person);
-
-//        personDa.edit(person);
-//        personDa.findByAll();
+//        Person person = Person
+//                .builder()
+//                .firstName("Ahmad")
+//                .lastName("Mesbah")
+//                .age(36)
+//                .nationalId("012451214")
+//                .email("ahmadMesbah@gmail.com")
+//                .gender(Gender.Male)
+//                .phone_number("09032154320")
+//                .status(Status.Enable)
+//                .birthDate(LocalDate.now())
+//                .city(City.Ahvaz)
+//                .username("mr.mpgv")
+//                .password("5a!@knak;fda")
+//                .role(Role.Admin)
+//                .medicalService(medicalService)
+//                .build();
 
 
-//        !!!!!!!!!!!!!!!!!!!!!!!!!!
 
-//        System.out.println(personDa.findByUsername("mr.mpgv"));
-//        System.out.println(personDa.findById(13));
-//        personDa.save(person);
-//        personDa.remove(12);
-//        System.out.println(personDa.findByLastName("Rasoli"));
-//        System.out.println(personDa.findByUserPass("mr.mpgv", "5a!@knak;fda"));
-
-
+//        System.out.println(PersonBl.getPersonBl().remove(14
+//        ));
 //
-//        System.out.println(person);
+//        System.out.println(PersonBl.getPersonBl().findById(13));
+//        System.out.println(PersonBl.getPersonBl().findByLastName("Rasoli"));
+//        System.out.println(PersonBl.getPersonBl().findByUsername("mr.mpgv"));
+//        System.out.println(PersonBl.getPersonBl().findByUserPass("mr.mpgv", "5a!@knak;fda"));
+//        System.out.println(PersonBl.getPersonBl().findByService("1"));
+
+
     }
 
 
