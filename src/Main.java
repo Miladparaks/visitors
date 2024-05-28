@@ -1,30 +1,35 @@
 import model.bl.MedicalServiceBl;
-import model.bl.PersonBl;
-import model.da.PersonDa;
 import model.entity.MedicalService;
-import model.entity.Person;
-import model.entity.enums.City;
-import model.entity.enums.Gender;
-import model.entity.enums.Role;
-import model.entity.enums.Status;
-
-import java.sql.SQLException;
-import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) throws Exception {
 
 
-        MedicalService medicalService = MedicalService
-                .builder()
-                .serviceName("Dentist")
-                .serviceDescription("Focusedon the teeth, gums, and mouth")
-                .serviceType("Primary care Clinics")
-                .serviceStatus(true)
-                .build();
+//        MedicalService medicalService = MedicalService
+//                .builder()
+//                .serviceId(12)
+//                .serviceName("Dentist")
+//                .serviceDescription("Focus on the teeth, gums, and mouth")
+//                .serviceType("online")
+//                .serviceStatus(false)
+//                .build();
+//
+//        MedicalServiceBl.getMedicalServiceBl().save(medicalService);
+//        System.out.println(medicalService);
 
-        MedicalServiceBl.getMedicalServiceBl().save(medicalService);
-        System.out.println(medicalService);
+//        MedicalServiceBl.getMedicalServiceBl().remove(13);
+//        System.out.println(MedicalServiceBl.getMedicalServiceBl().findById(10));
+//        System.out.println(MedicalServiceBl.getMedicalServiceBl().findAll());
+//
+//        System.out.println(MedicalServiceBl.getMedicalServiceBl().findByServiceName("CheckList"));
+//
+//        MedicalServiceBl.getMedicalServiceBl().edit(medicalService);
+
+//        System.out.println(MedicalServiceBl.getMedicalServiceBl().findByServiceType("online"));
+
+
+//        MedicalServiceBl.getMedicalServiceBl().save(medicalService);
+//        System.out.println(medicalService);
 
 
 //        Person person = Person
