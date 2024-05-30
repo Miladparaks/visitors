@@ -53,7 +53,22 @@ public class TimingDa implements AutoCloseable, CRUD<Timing> {
 
     @Override
     public Timing findById(int id) throws Exception {
-        return null;
+        preparedStatement = connection.prepareStatement("select * from timing where ID = ?");
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        Timing timing = null;
+        if(resultSet.next()) {
+            timing = Timing
+                    .builder()
+                    .timeId(resultSet.getInt("ID"))
+                    .startTime(Timestamp.valueOf(String.valueOf(resultSet.getDate("START_TIME"))).toLocalDateTime())
+//                    .endTime(resultSet.getDate("END_TIME").toString())
+                    .doctor(Person.builder().id(resultSet.getInt("ID")).build())
+                    .location(resultSet.getString("LOCATION"))
+                    .roomNumber(resultSet.getInt("ROOM_NUMBER"))
+                    .build();
+        }
+        return timing;
     }
 
 

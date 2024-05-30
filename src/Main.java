@@ -23,6 +23,8 @@ public class Main {
 //
 //        System.out.println(TimingBl.getTimingBl().save(timing));
 
+        System.out.println(TimingBl.getTimingBl().findById(1));
+
 
 //        MedicalService medicalService = MedicalService
 //                .builder()
