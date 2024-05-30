@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 public class Main {
     public static void main(String[] args) throws Exception {
 
+//  -------------------- Timing Test --------------------
 //        Timing timing = Timing
 //                .builder()
 //                .timeId(1)
@@ -22,9 +23,12 @@ public class Main {
 //                .build();
 //
 //        System.out.println(TimingBl.getTimingBl().save(timing));
+//        System.out.println(TimingBl.getTimingBl().findById(1));
+//        System.out.println(TimingBl.getTimingBl().findAll());
 
-        System.out.println(TimingBl.getTimingBl().findById(1));
+//  -------------------- Timing Test --------------------
 
+//  -------------------- Medical Test --------------------
 
 //        MedicalService medicalService = MedicalService
 //                .builder()
@@ -34,25 +38,20 @@ public class Main {
 //                .serviceType("online")
 //                .serviceStatus(false)
 //                .build();
-//
+
 //        MedicalServiceBl.getMedicalServiceBl().save(medicalService);
 //        System.out.println(medicalService);
-
 //        MedicalServiceBl.getMedicalServiceBl().remove(13);
 //        System.out.println(MedicalServiceBl.getMedicalServiceBl().findById(10));
 //        System.out.println(MedicalServiceBl.getMedicalServiceBl().findAll());
-//
 //        System.out.println(MedicalServiceBl.getMedicalServiceBl().findByServiceName("CheckList"));
-//
 //        MedicalServiceBl.getMedicalServiceBl().edit(medicalService);
-
 //        System.out.println(MedicalServiceBl.getMedicalServiceBl().findByServiceType("online"));
-
-
 //        MedicalServiceBl.getMedicalServiceBl().save(medicalService);
 //        System.out.println(medicalService);
+//  -------------------- Medical Test --------------------
 
-
+//  -------------------- Person Test --------------------
 //        Person person = Person
 //                .builder()
 //                .firstName("Ahmad")
@@ -71,22 +70,17 @@ public class Main {
 //                .medicalService(medicalService)
 //                .build();
 
-
-
-//        System.out.println(PersonBl.getPersonBl().remove(14
-//        ));
-//
+//        System.out.println(PersonBl.getPersonBl().remove(14));
 //        System.out.println(PersonBl.getPersonBl().findById(13));
 //        System.out.println(PersonBl.getPersonBl().findByLastName("Rasoli"));
 //        System.out.println(PersonBl.getPersonBl().findByUsername("mr.mpgv"));
 //        System.out.println(PersonBl.getPersonBl().findByUserPass("mr.mpgv", "5a!@knak;fda"));
 //        System.out.println(PersonBl.getPersonBl().findByService("1"));
-
 //        System.out.println(PersonBl.getPersonBl().findAll());
 //        System.out.println(PersonBl.getPersonBl().findByRole(Role.valueOf("Admin")));
 //        System.out.println(PersonBl.getPersonBl().findByService(String.valueOf("1")));
 
-
+//  -------------------- Person Test --------------------
     }
 
 

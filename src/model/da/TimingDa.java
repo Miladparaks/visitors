@@ -7,6 +7,7 @@ import model.tools.ConnectionProvider;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,7 +18,6 @@ public class TimingDa implements AutoCloseable, CRUD<Timing> {
     public TimingDa() throws SQLException {
         connection = ConnectionProvider.getConnectionProvider().getConnection();
     }
-
 
 
     @Override
@@ -48,7 +48,26 @@ public class TimingDa implements AutoCloseable, CRUD<Timing> {
 
     @Override
     public List<Timing> findAll() throws Exception {
-        return Collections.emptyList();
+
+        List<Timing> timingList = new ArrayList<>();
+
+        preparedStatement = connection.prepareStatement("select * from timing");
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+
+        while (resultSet.next()) {
+            Timing timing = Timing
+                    .builder()
+                    .timeId(resultSet.getInt("ID"))
+                    .startTime(resultSet.getTimestamp("START_TIME").toLocalDateTime())
+                    .endTime(resultSet.getTimestamp("END_TIME").toLocalDateTime())
+                    .doctor(Person.builder().id(resultSet.getInt("DOCTOR_ID")).build())
+                    .location(resultSet.getString("LOCATION"))
+                    .roomNumber(resultSet.getInt("ROOM_NUMBER"))
+                    .build();
+            timingList.add(timing);
+        }
+        return timingList;
     }
 
     @Override
@@ -57,21 +76,20 @@ public class TimingDa implements AutoCloseable, CRUD<Timing> {
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         Timing timing = null;
-        if(resultSet.next()) {
+
+        if (resultSet.next()) {
             timing = Timing
                     .builder()
                     .timeId(resultSet.getInt("ID"))
-                    .startTime(Timestamp.valueOf(String.valueOf(resultSet.getDate("START_TIME"))).toLocalDateTime())
-//                    .endTime(resultSet.getDate("END_TIME").toString())
-                    .doctor(Person.builder().id(resultSet.getInt("ID")).build())
+                    .startTime(resultSet.getTimestamp("START_TIME").toLocalDateTime())
+                    .endTime(resultSet.getTimestamp("END_TIME").toLocalDateTime())
+                    .doctor(Person.builder().id(resultSet.getInt("DOCTOR_ID")).build())
                     .location(resultSet.getString("LOCATION"))
                     .roomNumber(resultSet.getInt("ROOM_NUMBER"))
                     .build();
         }
         return timing;
     }
-
-
 
 
     @Override

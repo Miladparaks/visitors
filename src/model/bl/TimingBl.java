@@ -32,12 +32,26 @@ public class TimingBl implements CRUD<Timing> {
 
     @Override
     public Timing remove(int id) throws Exception {
-        return null;
+        try(TimingDa timingDa = new TimingDa()) {
+            Timing timing = timingDa.findById(id);
+            if(timing != null) {
+                timingDa.remove(id);
+            }else {
+                throw new NoTimingFoundException();
+            }
+        }
     }
 
     @Override
     public List<Timing> findAll() throws Exception {
-        return Collections.emptyList();
+        try(TimingDa timingDa = new TimingDa()) {
+            List<Timing> timingList = timingDa.findAll();
+            if(!timingList.isEmpty()) {
+                return timingList;
+            }else{
+                throw new NoTimingFoundException();
+            }
+        }
     }
 
     @Override
