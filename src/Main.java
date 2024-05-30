@@ -12,20 +12,20 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
 //  -------------------- Timing Test --------------------
-//        Timing timing = Timing
-//                .builder()
-//                .timeId(1)
-//                .startTime(LocalDateTime.now())
-//                .endTime(LocalDateTime.now().plusMinutes(30))
-//                .doctor(Person.builder().id(12).build())
-//                .location("Room Number 25")
-//                .roomNumber(12)
-//                .build();
-//
-//        System.out.println(TimingBl.getTimingBl().save(timing));
+        Timing timing = Timing
+                .builder()
+                .timeId(1)
+                .startTime(LocalDateTime.now())
+                .endTime(LocalDateTime.now().plusMinutes(30))
+                .doctor(Person.builder().id(13).build())
+                .location("First Floor")
+                .roomNumber(13)
+                .build();
+
+        System.out.println(TimingBl.getTimingBl().save(timing));
 //        System.out.println(TimingBl.getTimingBl().findById(1));
 //        System.out.println(TimingBl.getTimingBl().findAll());
-        System.out.println(TimingBl.getTimingBl().remove(2));
+//        System.out.println(TimingBl.getTimingBl().remove(2));
 //  -------------------- Timing Test --------------------
 
 //  -------------------- Medical Test --------------------

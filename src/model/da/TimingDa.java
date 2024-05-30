@@ -28,11 +28,12 @@ public class TimingDa implements AutoCloseable, CRUD<Timing> {
                 "INSERT INTO TIMING (ID, START_TIME, END_TIME, DOCTOR_ID, LOCATION, ROOM_NUMBER) VALUES (?, ?, ?, ?, ?, ?)"
         );
         preparedStatement.setInt(1, timing.getTimeId());
-        preparedStatement.setDate(2, Date.valueOf(String.valueOf(timing.getStartTime())));
-        preparedStatement.setDate(3, Date.valueOf(String.valueOf(timing.getEndTime())));
+        preparedStatement.setTimestamp(2, Timestamp.valueOf(timing.getStartTime()));
+        preparedStatement.setTimestamp(3, Timestamp.valueOf(timing.getEndTime()));
         preparedStatement.setInt(4, Integer.parseInt(String.valueOf(timing.getDoctor().getId())));
         preparedStatement.setString(5, timing.getLocation());
-        preparedStatement.setInt(6, Integer.parseInt(String.valueOf(timing.getRoomNumber())));
+        preparedStatement.setInt(6, timing.getRoomNumber());
+        preparedStatement.execute();
         return timing;
     }
 

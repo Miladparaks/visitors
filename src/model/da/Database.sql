@@ -31,6 +31,7 @@ CREATE TABLE PERSON
 create sequence person_seq start with 1 increment by 1;
 
 
+
 CREATE TABLE TIMING
 (
     Id          number primary key,
@@ -38,7 +39,7 @@ CREATE TABLE TIMING
     end_time    timestamp,
     doctor_id references PERSON,
     location    nvarchar2(30),
-    room_number number
+    room_number nvarchar2(3)
 );
 
 create sequence timing_seq start with 10 increment by 1;
