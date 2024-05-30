@@ -2,12 +2,15 @@ package model.da;
 
 import model.entity.Person;
 import model.entity.Timing;
+import model.tools.CRUD;
 import model.tools.ConnectionProvider;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
 
-public class TimingDa implements AutoCloseable{
+public class TimingDa implements AutoCloseable, CRUD<Timing> {
     private static Connection connection;
     private static PreparedStatement preparedStatement;
 
@@ -16,61 +19,47 @@ public class TimingDa implements AutoCloseable{
     }
 
 
-    public void save(Timing timing) throws SQLException {
 
+    @Override
+    public Timing save(Timing timing) throws Exception {
         timing.setTimeId(ConnectionProvider.getConnectionProvider().getNextId("TIMING_SEQ"));
 
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO SERVICES (TIMEID, STARTTIME, ENDTIME, DOCTOR_ID) VALUES (?, ?, ?, ?)"
+                "INSERT INTO TIMING (ID, START_TIME, END_TIME, DOCTOR_ID, LOCATION, ROOM_NUMBER) VALUES (?, ?, ?, ?, ?, ?)"
         );
         preparedStatement.setInt(1, timing.getTimeId());
         preparedStatement.setDate(2, Date.valueOf(String.valueOf(timing.getStartTime())));
         preparedStatement.setDate(3, Date.valueOf(String.valueOf(timing.getEndTime())));
         preparedStatement.setInt(4, Integer.parseInt(String.valueOf(timing.getDoctor().getId())));
-    }
-
-
-    public void edit(Timing timing) throws SQLException {
-        preparedStatement = connection.prepareStatement(
-                "UPDATE SERVICES SET STARTTIME = ?, ENDTIME = ?, DOCTOR_ID = ? WHERE TIMEID = ?"
-        );
-
-        preparedStatement.setDate(1, Date.valueOf(String.valueOf(timing.getStartTime())));
-        preparedStatement.setDate(2, Date.valueOf(String.valueOf(timing.getEndTime())));
-        preparedStatement.setInt(3, Integer.parseInt(String.valueOf(timing.getDoctor().getId())));
-        preparedStatement.setInt(4, Integer.parseInt(String.valueOf(timing.getTimeId())));
-        preparedStatement.execute();
-    }
-
-    public void remove(int id) throws SQLException {
-        preparedStatement = connection.prepareStatement(
-                "DELETE FROM TIMIN WHERE TIMEID = ?"
-        );
-
-        preparedStatement.setInt(1, id);
-        preparedStatement.execute();
-    }
-
-    public Timing findById(int id) throws SQLException {
-
-        preparedStatement = connection.prepareStatement("SELECT * FROM PERSON WHERE ID = ?");
-        preparedStatement.setInt(1, id);
-        ResultSet resultSet = preparedStatement.executeQuery();
-
-        Timing timing = null;
-        if (resultSet.next()) {
-            timing = Timing
-                    .builder()
-                    .timeId(resultSet.getInt("TIMEID"))
-                    .startTime(LocalDateTime.from(resultSet.getDate("STARTTIME").toLocalDate()))
-                    .endTime(LocalDateTime.from(resultSet.getDate("ENDTIME").toLocalDate()))
-                    .doctor(Person.builder().id(resultSet.getInt("DOCTOR_ID")).build())
-                    .build();
-        }
+        preparedStatement.setString(5, timing.getLocation());
+        preparedStatement.setInt(6, Integer.parseInt(String.valueOf(timing.getRoomNumber())));
         return timing;
     }
 
-@Override
+    @Override
+    public Timing edit(Timing timing) throws Exception {
+        return null;
+    }
+
+    @Override
+    public Timing remove(int id) throws Exception {
+        return null;
+    }
+
+    @Override
+    public List<Timing> findAll() throws Exception {
+        return Collections.emptyList();
+    }
+
+    @Override
+    public Timing findById(int id) throws Exception {
+        return null;
+    }
+
+
+
+
+    @Override
     public void close() throws Exception {
         preparedStatement.close();
         connection.close();

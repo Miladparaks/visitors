@@ -1,10 +1,30 @@
 import model.bl.MedicalServiceBl;
 import model.bl.PersonBl;
+import model.bl.TimingBl;
+import model.da.PersonDa;
 import model.entity.MedicalService;
+import model.entity.Person;
+import model.entity.Timing;
 import model.entity.enums.Role;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 public class Main {
     public static void main(String[] args) throws Exception {
+
+        Timing timing = Timing
+                .builder()
+                .timeId(1)
+                .startTime(LocalDateTime.of(2025,05,30,14,35,10))
+                .endTime(LocalDateTime.of(2025,05,31,14,35,10))
+                .doctor(Person.builder().id(12).build())
+                .location("Room Number 25")
+                .roomNumber(12)
+                .build();
+
+        System.out.println(TimingBl.getTimingBl().save(timing));
 
 
 //        MedicalService medicalService = MedicalService
@@ -64,7 +84,8 @@ public class Main {
 //        System.out.println(PersonBl.getPersonBl().findByService("1"));
 
 //        System.out.println(PersonBl.getPersonBl().findAll());
-        System.out.println(PersonBl.getPersonBl().findByRole(Role.valueOf("Admin")));
+//        System.out.println(PersonBl.getPersonBl().findByRole(Role.valueOf("Admin")));
+//        System.out.println(PersonBl.getPersonBl().findByService(String.valueOf("1")));
 
 
     }

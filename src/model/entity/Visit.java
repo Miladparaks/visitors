@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @SuperBuilder
 
 public class Visit {
-    private int visitId;
+    private int Id;
     private Person customer;
     private Timing timing;
     private LocalDateTime visitTime;

@@ -55,9 +55,11 @@ create sequence payment_seq start with 10 increment by 1;
 
 CREATE TABLE VISIT
 (
-    visit_id int primary key,
+    visit_id number primary key,
     customer references PERSON,
     timing_id references TIMING,
+    visit_time timestamp,
+    duration number(2),
     payment_id references PAYMENT,
     status   number(1)
 );
