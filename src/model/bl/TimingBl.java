@@ -36,6 +36,7 @@ public class TimingBl implements CRUD<Timing> {
             Timing timing = timingDa.findById(id);
             if(timing != null) {
                 timingDa.remove(id);
+                return timing;
             }else {
                 throw new NoTimingFoundException();
             }

@@ -43,7 +43,10 @@ public class TimingDa implements AutoCloseable, CRUD<Timing> {
 
     @Override
     public Timing remove(int id) throws Exception {
-        return null;
+       preparedStatement = connection.prepareStatement("Delete FROM TIMING WHERE ID = ?");
+       preparedStatement.setInt(1, id);
+       preparedStatement.executeQuery();
+       return null;
     }
 
     @Override
