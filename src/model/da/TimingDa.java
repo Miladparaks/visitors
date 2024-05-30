@@ -39,15 +39,27 @@ public class TimingDa implements AutoCloseable, CRUD<Timing> {
 
     @Override
     public Timing edit(Timing timing) throws Exception {
-        return null;
+        timing.setTimeId(ConnectionProvider.getConnectionProvider().getNextId("TIMING_SEQ"));
+
+        preparedStatement = connection.prepareStatement(
+                "UPDATE TIMING SET START_TIME = ?, END_TIME = ?, DOCTOR_ID = ?, LOCATION = ?, ROOM_NUMBER = ? WHERE ID = ?"
+        );
+        preparedStatement.setTimestamp(1, Timestamp.valueOf(timing.getStartTime()));
+        preparedStatement.setTimestamp(2, Timestamp.valueOf(timing.getEndTime()));
+        preparedStatement.setInt(3, timing.getDoctor().getId());
+        preparedStatement.setString(4, timing.getLocation());
+        preparedStatement.setInt(5, timing.getRoomNumber());
+        preparedStatement.setInt(6, timing.getTimeId());
+        preparedStatement.execute();
+        return timing;
     }
 
     @Override
     public Timing remove(int id) throws Exception {
-       preparedStatement = connection.prepareStatement("Delete FROM TIMING WHERE ID = ?");
-       preparedStatement.setInt(1, id);
-       preparedStatement.executeQuery();
-       return null;
+        preparedStatement = connection.prepareStatement("Delete FROM TIMING WHERE ID = ?");
+        preparedStatement.setInt(1, id);
+        preparedStatement.executeQuery();
+        return null;
     }
 
     @Override

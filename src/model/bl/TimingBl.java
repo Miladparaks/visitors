@@ -27,7 +27,14 @@ public class TimingBl implements CRUD<Timing> {
 
     @Override
     public Timing edit(Timing timing) throws Exception {
-        return null;
+        try(TimingDa timingDa = new TimingDa()) {
+            if(timingDa.findById(timing.getTimeId()) != null){
+                timingDa.edit(timing);
+                return timing;
+            }else {
+                throw new NoTimingFoundException();
+            }
+        }
     }
 
     @Override

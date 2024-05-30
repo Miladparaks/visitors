@@ -14,15 +14,16 @@ public class Main {
 //  -------------------- Timing Test --------------------
         Timing timing = Timing
                 .builder()
-                .timeId(1)
                 .startTime(LocalDateTime.now())
                 .endTime(LocalDateTime.now().plusMinutes(30))
-                .doctor(Person.builder().id(13).build())
-                .location("First Floor")
-                .roomNumber(13)
+                .doctor(Person.builder().id(11).build())
+                .location("Second Floor")
+                .roomNumber(14)
+                .timeId(11)
                 .build();
 
-        System.out.println(TimingBl.getTimingBl().save(timing));
+//        System.out.println(TimingBl.getTimingBl().save(timing));
+//        System.out.println(TimingBl.getTimingBl().edit(timing));
 //        System.out.println(TimingBl.getTimingBl().findById(1));
 //        System.out.println(TimingBl.getTimingBl().findAll());
 //        System.out.println(TimingBl.getTimingBl().remove(2));
