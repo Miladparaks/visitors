@@ -1,6 +1,7 @@
 package model.bl;
 
 import lombok.Getter;
+import model.controller.exceptions.NoTimingFoundException;
 import model.da.TimingDa;
 import model.entity.Timing;
 import model.tools.CRUD;
@@ -18,10 +19,10 @@ public class TimingBl implements CRUD<Timing> {
 
     @Override
     public Timing save(Timing timing) throws Exception {
-      try(TimingDa timingDa = new TimingDa()) {
-          timingDa.save(timing);
-          return timing;
-      }
+        try (TimingDa timingDa = new TimingDa()) {
+            timingDa.save(timing);
+            return timing;
+        }
     }
 
     @Override
@@ -41,6 +42,13 @@ public class TimingBl implements CRUD<Timing> {
 
     @Override
     public Timing findById(int id) throws Exception {
-        return null;
+        try(TimingDa timingDa = new TimingDa()) {
+            Timing timing = timingDa.findById(id);
+            if(timing != null){
+                return timing;
+            }else {
+                throw new NoTimingFoundException();
+            }
+        }
     }
 }
