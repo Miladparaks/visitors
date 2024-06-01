@@ -43,11 +43,28 @@ public class VisitDa implements AutoCloseable, CRUD<Visit> {
 
     @Override
     public Visit edit(Visit visit) throws Exception {
-        return null;
+        preparedStatement = connection.prepareStatement(
+                "UPDATE VISIT SET customer = ?, timing_id = ?, visit_time = ?, duration = ?, payment_id = ?, status = ? WHERE VISIT_ID = ?"
+        );
+
+        preparedStatement.setInt(1, visit.getCustomer().getId());
+        preparedStatement.setInt(2, visit.getTiming().getTimeId());
+        preparedStatement.setTimestamp(3, Timestamp.valueOf(visit.getVisitTime()));
+        preparedStatement.setInt(4, visit.getDuration());
+        preparedStatement.setInt(5, visit.getPayment().getPaymentId());
+        preparedStatement.setString(6, visit.getStatus().toString());
+        preparedStatement.setInt(7, visit.getId());
+        preparedStatement.executeQuery();
+        return visit;
     }
 
     @Override
     public Visit remove(int id) throws Exception {
+        preparedStatement = connection.prepareStatement(
+                "DELETE FROM VISIT WHERE visit_id = ?"
+        );
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
         return null;
     }
 

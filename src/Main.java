@@ -20,17 +20,22 @@ public class Main {
 
         Visit visit = Visit
                 .builder()
-                .customer(Person.builder().id(13).build())
-                .timing(Timing.builder().timeId(9).build())
+                .customer(Person.builder().id(11).build())
+                .timing(Timing.builder().timeId(19).build())
                 .visitTime(LocalDateTime.now())
-                .duration(10)
+                .duration(20)
                 .payment(Payment.builder().paymentId(12).build())
-                .status(Status.Enable)
+                .status(Status.Disable)
+                .Id(1)
                 .build();
+
+        //        System.out.println(VisitBl.getVisitBl().save(visit));
+        System.out.println(VisitBl.getVisitBl().edit(visit));
 
 //        System.out.println(VisitBl.getVisitBl().findById(1));
 //        System.out.println(VisitBl.getVisitBl().findAll());
-        System.out.println(VisitBl.getVisitBl().save(visit));
+
+//        System.out.println(VisitBl.getVisitBl().remove(20));
 
 
 //  -------------------- Payment Test --------------------

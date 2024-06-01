@@ -30,12 +30,27 @@ public class VisitBl implements CRUD<Visit> {
 
     @Override
     public Visit edit(Visit visit) throws Exception {
-        return null;
+       try(VisitDa visitDa = new VisitDa()){
+           if(visitDa.findById(visit.getId()) != null){
+               visitDa.edit(visit);
+               return visit;
+           }else {
+               throw new NoVisitFoundException();
+           }
+       }
     }
 
     @Override
     public Visit remove(int id) throws Exception {
-        return null;
+        try(VisitDa visitDa = new VisitDa()){
+            Visit visit = visitDa.findById(id);
+            if(visit != null){
+                visitDa.remove(id);
+                return visit;
+            }else {
+                throw new NoVisitFoundException();
+            }
+        }
     }
 
     @Override
