@@ -1,26 +1,46 @@
 
 import javafx.util.converter.LocalDateStringConverter;
+import model.bl.PaymentBl;
 import model.bl.TimingBl;
 
+import model.entity.Payment;
 import model.entity.Person;
 import model.entity.Timing;
+import model.entity.enums.VisitType;
 
 import java.time.LocalDateTime;
 
 
 public class Main {
     public static void main(String[] args) throws Exception {
+//  -------------------- Payment Test --------------------
+//        Payment payment = Payment
+//                .builder()
+//                .paymentTime(LocalDateTime.now())
+//                .paymentStatus("From now on")
+//                .paymentType(VisitType.Suspend)
+//                .paymentId(13)
+//                .build();
+
+//        System.out.println(PaymentBl.getPaymentBl().save(payment));
+//        System.out.println(PaymentBl.getPaymentBl().edit(payment));
+//        System.out.println(PaymentBl.getPaymentBl().findById(12));
+//        System.out.println(PaymentBl.getPaymentBl().remove(11));
+//        System.out.println(PaymentBl.getPaymentBl().findAll());
+
+
+//  -------------------- Payment Test --------------------
 
 //  -------------------- Timing Test --------------------
-        Timing timing = Timing
-                .builder()
-                .startTime(LocalDateTime.now())
-                .endTime(LocalDateTime.now().plusMinutes(30))
-                .doctor(Person.builder().id(11).build())
-                .location("Second Floor")
-                .roomNumber(14)
-                .timeId(11)
-                .build();
+//        Timing timing = Timing
+//                .builder()
+//                .startTime(LocalDateTime.now())
+//                .endTime(LocalDateTime.now().plusMinutes(30))
+//                .doctor(Person.builder().id(11).build())
+//                .location("Second Floor")
+//                .roomNumber(14)
+//                .timeId(11)
+//                .build();
 
 //        System.out.println(TimingBl.getTimingBl().save(timing));
 //        System.out.println(TimingBl.getTimingBl().edit(timing));

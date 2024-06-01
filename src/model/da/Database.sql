@@ -50,7 +50,7 @@ CREATE TABLE PAYMENT
     payment_id     number primary key,
     payment_time   timestamp,
     payment_status nvarchar2(15),
-    payment_type   char(30)
+    payment_type   nvarchar2(12)
 );
 create sequence payment_seq start with 10 increment by 1;
 

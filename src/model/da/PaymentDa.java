@@ -16,103 +16,77 @@ public class PaymentDa implements AutoCloseable {
         connection = ConnectionProvider.getConnectionProvider().getConnection();
     }
 
-    public void save(Payment payment) throws SQLException {
+    public void save(Payment payment) throws Exception {
         payment.setPaymentId(ConnectionProvider.getConnectionProvider().getNextId("PAYMENT_SEQ"));
 
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO PAYMENT (paymentId, paymentTime, paymentStatus, paymentType) VALUES ( ?, ?, ?, ?)"
+                "INSERT INTO PAYMENT (payment_Id, payment_Time, payment_Status, payment_Type) VALUES ( ?, ?, ?, ?)"
         );
         preparedStatement.setInt(1, payment.getPaymentId());
-        preparedStatement.setDate(2, Date.valueOf(String.valueOf(payment.getPaymentTime())));
-        preparedStatement.setString(3, payment.getPaymentStatus().toString());
-        preparedStatement.setString(4, payment.getPaymentType().toString());
-
+        preparedStatement.setTimestamp(2, Timestamp.valueOf(payment.getPaymentTime()));
+        preparedStatement.setString(3, payment.getPaymentStatus());
+        preparedStatement.setString(4, String.valueOf(VisitType.valueOf(String.valueOf(payment.getPaymentType()))));
+        preparedStatement.executeQuery();
     }
 
     public void edit(Payment payment) throws SQLException {
         preparedStatement = connection.prepareStatement(
-                "UPDATE PAYMENT SET paymentTime = ?, paymentStatus = ?, paymentType = ?  WHERE paymentId = ?"
+                "UPDATE PAYMENT SET payment_time = ?, payment_status = ?, payment_type = ?  WHERE payment_id = ?"
         );
 
-        preparedStatement.setDate(1, Date.valueOf(payment.getPaymentTime().toString()));
-        preparedStatement.setString(2, (payment.getPaymentStatus().toString()));
-        preparedStatement.setString(3, payment.getPaymentType().toString());
+        preparedStatement.setTimestamp(1, Timestamp.valueOf(payment.getPaymentTime()));
+        preparedStatement.setString(2, payment.getPaymentStatus());
+        preparedStatement.setString(3, String.valueOf(payment.getPaymentType()));
         preparedStatement.setInt(4, payment.getPaymentId());
-        preparedStatement.execute();
+        preparedStatement.executeQuery();
     }
 
-    public void remove(int id) throws SQLException {
+    public void remove(int id) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "DELETE FROM PAYMENT WHERE paymentId = ?"
+                "DELETE FROM PAYMENT WHERE payment_Id = ?"
         );
         preparedStatement.setInt(1, id);
-        preparedStatement.execute();
+        preparedStatement.executeQuery();
     }
 
 
-    public static List<Payment> findAll() throws SQLException {
+    public static List<Payment> findAll() throws Exception {
         List<Payment> paymentList = new ArrayList<>();
         preparedStatement = connection.prepareStatement(
-                "SELECT * FROM PAYMENT ORDER BY PAYMENT.PAYMENT_ID"
+                "SELECT * FROM PAYMENT"
         );
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             Payment payment = Payment.builder()
-                    .paymentId(resultSet.getInt("paymentId"))
-                    // localTime????
-                    .paymentTime(resultSet.getTimestamp("paymenttime").toLocalDateTime())
-                    .paymentStatus(resultSet.getString("paymentStatus"))
-                    .paymentType(VisitType.valueOf(resultSet.getString("PaymentType")))
+                    .paymentId(resultSet.getInt("payment_Id"))
+                    .paymentTime(resultSet.getTimestamp("payment_Time").toLocalDateTime())
+                    .paymentStatus(resultSet.getString("payment_Status"))
+                    .paymentType(VisitType.valueOf(resultSet.getString("Payment_Type")))
                     .build();
+            paymentList.add(payment);
         }
         return paymentList;
     }
 
-    public Payment findById(int id) throws SQLException {
-        preparedStatement = connection.prepareStatement(
-                "select * from PAYMENT where paymentId = ?"
-        );
+    public Payment findById(int id) throws Exception {
+        preparedStatement = connection.prepareStatement("select * from PAYMENT where payment_Id = ?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
-
-        Payment peyment = null;
-
+        Payment payment = null;
         if (resultSet.next()) {
-            Payment payment = Payment.builder()
-                    .paymentId(resultSet.getInt("paymentId"))
-                    .paymentTime(resultSet.getTimestamp("paymenttime").toLocalDateTime())
-                    .paymentStatus(resultSet.getString("paymentStatus"))
-                    .paymentType(VisitType.valueOf(resultSet.getString("PaymentType")))
+            payment = Payment
+                    .builder()
+                    .paymentId(resultSet.getInt("payment_Id"))
+                    .paymentTime(resultSet.getTimestamp("payment_Time").toLocalDateTime())
+                    .paymentStatus(resultSet.getString("payment_Status"))
+                    .paymentType(VisitType.valueOf(resultSet.getString("Payment_Type")))
                     .build();
         }
-
-
-        return null;
+        return payment;
     }
 
 
-    public Payment findByDate(String startDate, String endDate) throws SQLException {
-        preparedStatement = connection.prepareStatement(
-                "select * from PAYMENT where paymenttime between ? and ?"
-        );
-        preparedStatement.setInt(1, Integer.parseInt(startDate));
-        preparedStatement.setInt(2, Integer.parseInt(endDate));
-        ResultSet resultSet = preparedStatement.executeQuery();
 
-        Payment peyment = null;
-
-        if (resultSet.next()) {
-            Payment payment = Payment.builder()
-                    .paymentId(resultSet.getInt("paymentId"))
-                    .paymentTime(resultSet.getTimestamp("paymenttime").toLocalDateTime())
-                    .paymentStatus(resultSet.getString("paymentStatus"))
-                    .paymentType(VisitType.valueOf(resultSet.getString("PaymentType")))
-                    .build();
-        }
-
-
-        return peyment;
-    }
 
 
     @Override
