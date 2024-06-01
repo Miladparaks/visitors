@@ -21,13 +21,15 @@ public class Main {
         Visit visit = Visit
                 .builder()
                 .customer(Person.builder().id(13).build())
-                .timing(Timing.builder().timeId(11).build())
+                .timing(Timing.builder().timeId(9).build())
                 .visitTime(LocalDateTime.now())
                 .duration(10)
                 .payment(Payment.builder().paymentId(12).build())
                 .status(Status.Enable)
                 .build();
 
+//        System.out.println(VisitBl.getVisitBl().findById(1));
+//        System.out.println(VisitBl.getVisitBl().findAll());
         System.out.println(VisitBl.getVisitBl().save(visit));
 
 

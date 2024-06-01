@@ -3,6 +3,7 @@ package model.bl;
 
 
 import lombok.Getter;
+import model.controller.exceptions.NoVisitFoundException;
 import model.da.VisitDa;
 import model.entity.Visit;
 import model.tools.CRUD;
@@ -39,11 +40,26 @@ public class VisitBl implements CRUD<Visit> {
 
     @Override
     public List<Visit> findAll() throws Exception {
-        return Collections.emptyList();
+       try(VisitDa visitDa = new VisitDa()){
+           List<Visit> visits = visitDa.findAll();
+           if(!visits.isEmpty()){
+               return visits;
+           }
+           else {
+               throw new NoVisitFoundException();
+           }
+       }
     }
 
     @Override
     public Visit findById(int id) throws Exception {
-        return null;
+        try(VisitDa visitDa = new VisitDa()){
+            Visit visit = visitDa.findById(id);
+            if(visit != null){
+                return visit;
+            }else{
+                throw new NoVisitFoundException();
+            }
+        }
     }
 }
