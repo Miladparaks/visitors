@@ -3,9 +3,12 @@ import javafx.util.converter.LocalDateStringConverter;
 import model.bl.PaymentBl;
 import model.bl.TimingBl;
 
+import model.bl.VisitBl;
 import model.entity.Payment;
 import model.entity.Person;
 import model.entity.Timing;
+import model.entity.Visit;
+import model.entity.enums.Status;
 import model.entity.enums.VisitType;
 
 import java.time.LocalDateTime;
@@ -13,6 +16,21 @@ import java.time.LocalDateTime;
 
 public class Main {
     public static void main(String[] args) throws Exception {
+//  -------------------- Visit Test --------------------
+
+        Visit visit = Visit
+                .builder()
+                .customer(Person.builder().id(13).build())
+                .timing(Timing.builder().timeId(11).build())
+                .visitTime(LocalDateTime.now())
+                .duration(10)
+                .payment(Payment.builder().paymentId(12).build())
+                .status(Status.Enable)
+                .build();
+
+        System.out.println(VisitBl.getVisitBl().save(visit));
+
+
 //  -------------------- Payment Test --------------------
 //        Payment payment = Payment
 //                .builder()

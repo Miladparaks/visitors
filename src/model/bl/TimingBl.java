@@ -6,7 +6,7 @@ import model.da.TimingDa;
 import model.entity.Timing;
 import model.tools.CRUD;
 
-import java.util.Collections;
+
 import java.util.List;
 
 public class TimingBl implements CRUD<Timing> {

@@ -64,5 +64,5 @@ CREATE TABLE VISIT
     payment_id references PAYMENT,
     status   number(1)
 );
-create sequence visit_seq start with 10 increment by 1;
+create sequence visit_seq start with 1 increment by 1;
 
