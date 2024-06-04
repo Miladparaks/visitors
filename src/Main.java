@@ -1,22 +1,22 @@
 
+import controller.PersonController;
 import javafx.util.converter.LocalDateStringConverter;
 import model.bl.PaymentBl;
 import model.bl.TimingBl;
 
 import model.bl.VisitBl;
-import model.entity.Payment;
-import model.entity.Person;
-import model.entity.Timing;
-import model.entity.Visit;
-import model.entity.enums.Status;
-import model.entity.enums.VisitType;
+import model.entity.*;
+import model.entity.enums.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
 public class Main {
     public static void main(String[] args) throws Exception {
 //  -------------------- Visit Test --------------------
+
+
 
         Visit visit = Visit
                 .builder()
@@ -104,15 +104,15 @@ public class Main {
 //                .age(36)
 //                .nationalId("012451214")
 //                .email("ahmadMesbah@gmail.com")
-//                .gender(Gender.Male)
+//                .gender(Gender.Male)rname("mr.mpgv")
+////                .password("5a!@knak;fda")
+////                .role(Role.Admin)
+////                .medicalServi
 //                .phone_number("09032154320")
 //                .status(Status.Enable)
 //                .birthDate(LocalDate.now())
 //                .city(City.Ahvaz)
-//                .username("mr.mpgv")
-//                .password("5a!@knak;fda")
-//                .role(Role.Admin)
-//                .medicalService(medicalService)
+//                .usece(medicalService)
 //                .build();
 
 //        System.out.println(PersonBl.getPersonBl().remove(14));
@@ -126,6 +126,8 @@ public class Main {
 //        System.out.println(PersonBl.getPersonBl().findByService(String.valueOf("1")));
 
 //  -------------------- Person Test --------------------
+
+        System.out.println(PersonController.save("Karen","Parsa",35, "0082373493", "karenparsa2015@gmail.com", Gender.Male, "09122711518", Status.Enable, LocalDate.now(), City.Tehran, "K.parsa", "!@123!@a", Role.Doctor, MedicalService.builder().serviceId(14).build()));
     }
 
 
