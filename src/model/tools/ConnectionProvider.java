@@ -10,8 +10,8 @@ import java.sql.SQLException;
 
 public class ConnectionProvider {
 
-    @Getter
 
+@Getter
     private static ConnectionProvider connectionProvider = new ConnectionProvider();
     private static BasicDataSource basicDataSource = new BasicDataSource();
 

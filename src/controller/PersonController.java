@@ -1,5 +1,6 @@
 package controller;
 
+import com.google.gson.Gson;
 import model.bl.PersonBl;
 import model.entity.MedicalService;
 import model.entity.Person;
@@ -8,6 +9,7 @@ import model.entity.enums.Gender;
 import model.entity.enums.Role;
 import model.entity.enums.Status;
 
+import javax.ws.rs.*;
 import java.time.LocalDate;
 import java.util.regex.Pattern;
 
@@ -15,6 +17,32 @@ import static model.tools.Validator.*;
 
 public class PersonController {
 
+    @Path("/person/")
+
+
+    @GET
+    @Produces
+    public String getPerson() {
+        Gson json = new Gson();
+        return json.toJson(Person.builder()
+                .id(10)
+                .firstName("Milad")
+                .lastName("Parsa")
+                .build());
+    }
+
+    @POST
+    public String save(
+            @QueryParam("id") int id,
+            @QueryParam("firstName") String firstName,
+            @QueryParam("LastName") String lastName) {
+        Gson json = new Gson();
+        return json.toJson(Person.builder()
+                .id(10)
+                .firstName("Milad")
+                .lastName("Parsa")
+                .build());
+    }
 
     public static String save(String firstName, String lastName, int age, String nationalId, String email, Gender gender, String phone_number, Status status, LocalDate birthDate, City city, String username, String password, Role role, MedicalService medicalService) {
         try {

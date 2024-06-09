@@ -34,5 +34,13 @@ public class Validator {
             throw new Exception(message);
         }
     }
+    public static String checkNullValidator(String value, String message) throws Exception {
+        if(value != null){
+            return value;
+        }
+        else{
+            throw new Exception(message);
+        }
+    }
 }
 

@@ -1,5 +1,7 @@
 
+import controller.MedicalServiceController;
 import controller.PersonController;
+import controller.TimingController;
 import javafx.util.converter.LocalDateStringConverter;
 import model.bl.PaymentBl;
 import model.bl.TimingBl;
@@ -65,7 +67,7 @@ public class Main {
 //                .roomNumber(14)
 //                .timeId(11)
 //                .build();
-
+        System.out.println(TimingController.save(LocalDateTime.now(), LocalDateTime.now().plusMinutes(30), Person.builder().id(11).build(), "Third Flooer", 14));
 //        System.out.println(TimingBl.getTimingBl().save(timing));
 //        System.out.println(TimingBl.getTimingBl().edit(timing));
 //        System.out.println(TimingBl.getTimingBl().findById(1));
@@ -83,6 +85,9 @@ public class Main {
 //                .serviceType("online")
 //                .serviceStatus(false)
 //                .build();
+
+//        System.out.println(MedicalServiceController.save("Health & Social Care", "Our comprehensive range of services caters to every need", "Online", false));
+
 
 //        MedicalServiceBl.getMedicalServiceBl().save(medicalService);
 //        System.out.println(medicalService);
@@ -127,7 +132,7 @@ public class Main {
 
 //  -------------------- Person Test --------------------
 
-        System.out.println(PersonController.save("Karen","Parsa",35, "0082373493", "karenparsa2015@gmail.com", Gender.Male, "09122711518", Status.Enable, LocalDate.now(), City.Tehran, "K.parsa", "!@123!@a", Role.Doctor, MedicalService.builder().serviceId(14).build()));
+//        System.out.println(PersonController.save("Karen","Parsa",35, "0082373493", "karenparsa2015@gmail.com", Gender.Male, "09122711518", Status.Enable, LocalDate.now(), City.Tehran, "K.parsa", "!@123!@a", Role.Doctor, MedicalService.builder().serviceId(14).build()));
     }
 
 
