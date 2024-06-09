@@ -17,7 +17,7 @@ import static model.tools.Validator.*;
 
 public class PersonController {
 
-    @Path("/person/")
+    @Path("person")
 
 
     @GET

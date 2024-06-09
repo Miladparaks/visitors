@@ -9,7 +9,7 @@ import java.io.IOException;
 public class App {
     public static void main(String[] args) throws IOException {
         ResourceConfig config = new PackagesResourceConfig("controller");
-        HttpServer server = HttpServerFactory.create("http://172.20.10.3:80/", config);
+        HttpServer server = HttpServerFactory.create("http://localhost:80/", config);
         server.start();
     }
 
